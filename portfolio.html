@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason Daniel — Computer Science</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0A1628;
+            --primary-light: #1A2844;
+            --accent: #14B8A6;
+            --accent-light: #2DD4BF;
+            --text-primary: #F8FAFB;
+            --text-secondary: #B8C5D6;
+            --text-muted: #7A8B9E;
+            --border: #2A3A52;
+            --bg-subtle: #11213A;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: var(--primary-light);
+            padding: 2rem 1.5rem;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        nav h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        nav p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        nav ul {
+            list-style: none;
+            margin-bottom: 3rem;
+        }
+
+        nav li {
+            margin-bottom: 0.75rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 240px;
+            padding: 3rem 2rem;
+            max-width: 1000px;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
+
+        .hero .accent-text {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(20, 184, 166, 0.1);
+        }
+
+        /* Section */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Projects Grid */
+        .projects {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr;
+        }
+
+        .project {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .project:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(20, 184, 166, 0.15);
+        }
+
+        .project h3 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(20, 184, 166, 0.15);
+            color: var(--accent);
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .project-links a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .skill-category {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+        }
+
+        .skill-category h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.375rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* About */
+        .about-content {
+            background: var(--bg-subtle);
+            border-left: 3px solid var(--accent);
+            border-radius: 0.375rem;
+            padding: 2rem;
+            line-height: 1.8;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                position: static;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 2rem;
+                padding: 1.5rem;
+            }
+
+            main {
+                margin-left: 0;
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Jason Daniel</h1>
+        <p>Computer Science Student</p>
+        <ul>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div style="border-top: 1px solid var(--border); padding-top: 1.5rem;">
+            <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">Get in touch</div>
+            <div style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                <a href="mailto:jason@example.com" style="color: var(--accent); text-decoration: none;">jason@example.com</a>
+            </div>
+            <div style="color: var(--text-secondary);">
+                <a href="https://github.com" style="color: var(--accent); text-decoration: none;">github.com/jasondaniel</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>Hello, I'm <span class="accent-text">Jason</span></h1>
+            <p>A Computer Science student passionate about building things. I work across data structures, embedded systems, and machine learning projects.</p>
+            <div class="cta-group">
+                <a href="#work" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            </div>
+        </section>
+
+        <section id="work">
+            <h2>Featured Projects</h2>
+            <div class="projects">
+                <div class="project">
+                    <h3>CNN-GAT Retinal Disease Classifier</h3>
+                    <div class="project-meta">
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">PyTorch</span>
+                    </div>
+                    <p>Hybrid CNN-GAT model for automated retinal disease classification. Integrated graph attention networks with convolutional backbones for improved feature extraction and interpretability. Focused on model architecture optimization and backbone experimentation.</p>
+                    <div class="project-links">
+                        <a href="#">View Project</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <h3>Single-Phase AC Energy Meter</h3>
+                    <div class="project-meta">
+                        <span class="tag">Embedded Systems</span>
+                        <span class="tag">Arduino</span>
+                        <span class="tag">ESP32</span>
+                    </div>
+                    <p>IoT power meter using ACS712 current sensor and ZMPT101B voltage sensor on ESP32 microcontroller. Features 1.3" OLED display and relay-controlled load management. Real-time energy consumption monitoring with data logging capabilities.</p>
+                    <div class="project-links">
+                        <a href="#">View Project</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <h3>Electric Machines & Transformers Analysis</h3>
+                    <div class="project-meta">
+                        <span class="tag">Power Systems</span>
+                        <span class="tag">Circuit Analysis</span>
+                    </div>
+                    <p>Comprehensive study of single-phase transformers including EMF equations, equivalent circuit derivation from open-circuit and short-circuit tests, voltage regulation analysis, and efficiency calculations. Strong foundation in power system fundamentals.</p>
+                    <div class="project-links">
+                        <a href="#">View Notes</a>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <h3>Data Structures & Algorithms Mastery</h3>
+                    <div class="project-meta">
+                        <span class="tag">Algorithms</span>
+                        <span class="tag">C++</span>
+                    </div>
+                    <p>Active learning journey through DSA fundamentals. Building strong problem-solving foundations with focus on implementation, optimization, and real-world applications. Regular practice and project implementation in C++.</p>
+                    <div class="project-links">
+                        <a href="#">Learning Progress</a>
+                        <a href="#">Code Repo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>C++</li>
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>HTML/CSS</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Machine Learning</h3>
+                    <ul>
+                        <li>PyTorch</li>
+                        <li>CNNs</li>
+                        <li>Graph Neural Networks</li>
+                        <li>Model Optimization</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Embedded Systems</h3>
+                    <ul>
+                        <li>Arduino</li>
+                        <li>ESP32</li>
+                        <li>Sensor Integration</li>
+                        <li>IoT Development</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Specializations</h3>
+                    <ul>
+                        <li>Data Structures</li>
+                        <li>Algorithm Design</li>
+                        <li>Power Systems</li>
+                        <li>Circuit Analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>I'm a Computer Science student with a passion for solving complex problems through code and engineering. My interests span across artificial intelligence, embedded systems, and power electronics — fields where theoretical knowledge meets practical impact.</p>
+                <p>Currently, I'm deepening my expertise in data structures and algorithms while simultaneously building real-world IoT applications and exploring cutting-edge ML architectures. I believe in learning by doing: each project builds fundamental skills while tackling novel challenges.</p>
+                <p>When I'm not coding or studying, I'm curious about the intersection of software and hardware, how energy systems work, and how machine learning can solve problems in specialized domains like medical imaging.</p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Let's Connect</h2>
+            <div class="about-content">
+                <p>I'm open to collaborations, internship opportunities, or just interesting technical conversations. Feel free to reach out via email or connect on GitHub.</p>
+                <div class="cta-group" style="margin-top: 2rem;">
+                    <a href="mailto:jason@example.com" class="btn btn-primary">Send Email</a>
+                    <a href="https://github.com" class="btn btn-secondary">GitHub Profile</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="social-links">
+                <a href="mailto:jason@example.com">Email</a>
+                <a href="https://github.com">GitHub</a>
+                <a href="https://linkedin.com">LinkedIn</a>
+            </div>
+            <p>Designed & built by Jason Daniel. Last updated September 2026.</p>
+        </footer>
+    </main>
+</body>
+</html>
